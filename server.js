@@ -27,10 +27,13 @@ MongoClient.connect(url, (err, client) => {
   }
   console.log('connected successfully to db server');
   db = client.db(dbName);
-  db.collection('messages').find({}).toArray((err, docs) => { 
-    console.log(docs);
-  });
+  getMessages();
 });
+
+async function getMessages() {
+  const docs = await db.collection('messages').find({}).toArray();  
+  console.log(docs);
+}
 
 app.listen(port, () => {
   console.log('App running on port: ', port);

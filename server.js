@@ -10,14 +10,13 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'messageBoard';
 let db;
 
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/api/message', (req, res) => { 
   // console.log(req.body);
-  db.collection('messages').insertOne({
-    msg: req.body
-  });  
+  const message = req.body;
+  db.collection('messages').insertOne(message);  
   res.status(200).send();
 });
 
